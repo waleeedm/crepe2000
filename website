@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CREPE 2000 — Standalone Website (SAB Holding)</title>
+  <meta name="description" content="CREPE 2000 — menu, order online, survey, locations and contact. Part of SAB Holding." />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* DESIGN - front-end styles up front (revert + improved) */
+    :root{--navy:#1f2a63;--accent:#d99a32;--muted:#6b7280;--bg:#fff7f8;--card:#ffffff;--max:1140px}
+    *{box-sizing:border-box}
+    body{font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:0;background:var(--bg);color:#111}
+    .wrap{max-width:var(--max);margin:0 auto;padding:18px}
+
+    /* Header */
+    header{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:68px;height:68px;border-radius:10px;overflow:hidden;border:3px solid rgba(0,0,0,0.04);background:white}
+    .logo img{width:100%;height:100%;object-fit:contain}
+    nav{display:flex;gap:10px;align-items:center}
+    nav a{margin:0 6px;color:var(--navy);text-decoration:none;font-weight:600}
+    .cta{background:var(--accent);padding:10px 14px;border-radius:8px;color:white;text-decoration:none;font-weight:700}
+
+    /* HERO */
+    .hero{display:flex;gap:18px;align-items:center;padding:20px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.6),rgba(255,255,255,0.8))}
+    .hero .title{font-size:26px;color:var(--navy);margin:0}
+    .hero p{color:var(--muted);margin:6px 0 0}
+
+    /* layout */
+    .order-layout{display:grid;grid-template-columns:1fr 360px;gap:18px;margin-top:18px}
+    @media(max-width:900px){.order-layout{grid-template-columns:1fr}}
+
+    /* tabs */
+    .tabs{display:flex;gap:8px;overflow:auto;padding:8px 6px;background:transparent}
+    .tab{flex:0 0 auto;padding:8px 12px;border-radius:8px;border:1px solid transparent;background:white;cursor:pointer;font-weight:700}
+    .tab.active{background:var(--navy);color:white;border-color:rgba(0,0,0,0.06)}
+
+    /* items */
+    .items{background:var(--card);padding:12px;border-radius:12px;box-shadow:0 8px 20px rgba(17,24,39,0.06);min-height:300px}
+    .item{display:flex;justify-content:space-between;align-items:flex-start;padding:12px;border-bottom:1px dashed #eee}
+    .item .meta{max-width:72%}
+    .item h4{margin:0 0 6px;color:var(--navy)}
+    .item small{display:block;color:var(--muted)}
+    .item .price{font-weight:800;min-width:56px;text-align:right}
+    .add-btn{margin-top:8px;padding:8px 12px;border-radius:8px;background:var(--accent);color:white;border:none;font-weight:700;cursor:pointer}
+
+    /* cart */
+    .cart{background:var(--card);padding:12px;border-radius:12px;box-shadow:0 8px 20px rgba(17,24,39,0.06)}
+    .cart h3{margin:0 0 8px}
+    .cart .line{display:flex;justify-content:space-between;padding:6px 0}
+    .checkout input, .checkout textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #eee;margin-bottom:8px}
+    .checkout button{width:100%;padding:12px;border-radius:8px;background:var(--navy);color:#fff;border:none;font-weight:700}
+
+    /* menu page */
+    .card{background:var(--card);padding:12px;border-radius:12px;box-shadow:0 8px 20px rgba(17,24,39,0.04);}
+    .menu-cat{margin-top:12px}
+    .menu-cat h3{margin:0 0 8px;color:var(--navy)}
+    .menu-subcat h4{margin:6px 0 6px;color:var(--navy);font-size:16px}
+    .menu-item{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #eee}
+    .price{font-weight:700}
+
+    footer{margin-top:28px;padding:18px 0;border-top:1px solid #eee;color:var(--muted)}
+
+    @media(max-width:600px){.logo{width:52px;height:52px}.hero .title{font-size:20px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <!-- LOGO: using uploaded file path so HTML works on GitHub without extra folders -->
+        <div class="logo"><img src="/mnt/data/21319d5c-0861-4e90-b7c7-c1fc34096b36.png" alt="CREPE 2000 logo"></div>
+        <div>
+          <div style="font-weight:700;color:var(--navy)">CREPE 2000</div>
+          <div style="font-size:12px;color:var(--muted)">A SAB Holding Company</div>
+        </div>
+      </div>
+
+      <nav>
+        <a href="#home" onclick="route(event,'home')">Home</a>
+        <a href="#menu" onclick="route(event,'menu')">Menu</a>
+        <a href="#order" onclick="route(event,'order')">Order Online</a>
+        <a href="#locations" onclick="route(event,'locations')">Locations</a>
+        <a href="#survey" onclick="route(event,'survey')">Survey</a>
+        <a class="cta" href="#contact" onclick="route(event,'contact')">Contact</a>
+      </nav>
+    </header>
+
+    <main id="content">
+      <!-- HOME -->
+      <section id="home-section">
+        <div class="hero card">
+          <div style="flex:1">
+            <div style="color:var(--muted);font-weight:700">Authentic Street Crepes & Rolls</div>
+            <h1 class="title">CREPE 2000 — Fresh, Fast & Tasty</h1>
+            <p>Welcome to CREPE 2000. Use <strong>Order Online</strong> to browse categories and add items to your cart. Visit <strong>Menu</strong> for a full view. Contact us via the Contact page or submit feedback using the Survey.</p>
+            <div style="margin-top:12px"><a class="cta" href="#order" onclick="route(event,'order')">Order Online</a></div>
+          </div>
+
+          <div style="width:220px">
+            <img src="/mnt/data/21d12ae3-c7ea-4564-bc7e-e988fee00eb7.jpg" alt="menu preview" style="width:100%;border-radius:8px;object-fit:cover">
+          </div>
+        </div>
+      </section>
+
+      <!-- ORDER -->
+      <section id="order-section" class="hidden">
+        <div class="order-layout">
+          <div>
+            <div class="tabs" id="category-tabs" role="tablist" aria-label="Menu categories"></div>
+            <div class="items" id="items-list" aria-live="polite"></div>
+          </div>
+
+          <aside class="cart">
+            <h3>Your Cart</h3>
+            <div id="cart-contents"><div style="color:var(--muted)">Cart is empty</div></div>
+            <div style="display:flex;justify-content:space-between;margin-top:12px"><strong>Total</strong><strong id="cart-total">0</strong></div>
+
+            <div class="checkout">
+              <form id="order-form">
+                <input required name="name" placeholder="Full name">
+                <input required name="phone" placeholder="Phone number">
+                <input name="address" placeholder="Delivery address (if any)">
+                <button type="submit">Place Order</button>
+              </form>
+              <div id="order-status" style="color:var(--muted);font-size:13px;margin-top:8px"></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- MENU (full view) -->
+      
+
+      <!-- LOCATIONS -->
+      <section id="locations-section" class="hidden">
+        <div class="card">
+          <h2 style="color:var(--navy);margin-top:0">Locations</h2>
+          <p style="color:var(--muted)">List your branches below. Replace with real addresses and phone numbers.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
+            <div class="card"><strong>Branch 1</strong><div style="color:var(--muted);font-size:14px">Cairo — Taha Hussein St.<br>Tel: +20 2 0000 0000<br>Open: 10:00 — 02:00</div></div>
+            <div class="card"><strong>Branch 2</strong><div style="color:var(--muted);font-size:14px">Giza — Dokki<br>Tel: +20 2 1111 1111<br>Open: 11:00 — 01:00</div></div>
+          </div>
+          <div style="margin-top:12px">Replace with Google Maps embed or Mapbox iframe</div>
+        </div>
+      </section>
+
+      <!-- SURVEY -->
+      <section id="survey-section" class="hidden">
+        <div class="card">
+          <h2 style="color:var(--navy);margin-top:0">Customer Survey</h2>
+          <p style="color:var(--muted)">Short survey to collect quick feedback. Use NPS or 1–5 rating and a short comment.</p>
+          <form id="survey-form">
+            <label style="display:block;margin-top:8px;color:var(--muted)">Overall satisfaction (1-5)</label>
+            <select name="rating" style="padding:10px;border-radius:8px;border:1px solid #eee;margin-top:6px">
+              <option value="5">5 - Excellent</option>
+              <option value="4">4 - Good</option>
+              <option value="3">3 - Average</option>
+              <option value="2">2 - Poor</option>
+              <option value="1">1 - Terrible</option>
+            </select>
+            <textarea name="comments" placeholder="Any comments?" style="width:100%;padding:10px;border-radius:8px;border:1px solid #eee;margin-top:8px;min-height:80px"></textarea>
+            <button type="submit" style="margin-top:8px;padding:12px;border-radius:8px;background:var(--accent);border:none;color:white;font-weight:700">Submit Feedback</button>
+            <div id="survey-status" style="color:var(--muted);font-size:13px;margin-top:8px"></div>
+          </form>
+        </div>
+      </section>
+
+      <!-- CONTACT (reverted with full fields and status) -->
+      <section id="contact-section" class="hidden">
+        <div class="card">
+          <h2 style="color:var(--navy);margin-top:0">Contact</h2>
+          <p style="color:var(--muted)">General enquiries, partnerships, careers and press. Use the form below — it follows the same clean layout as our Survey page for consistent UX.</p>
+
+          <!-- Contact form styled like the survey app -->
+          <form id="contact-form" style="display:grid;grid-template-columns:1fr;gap:10px;">
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <input required name="name" placeholder="Full name" style="flex:1;min-width:140px;padding:10px;border-radius:8px;border:1px solid #eee">
+              <input required name="email" placeholder="Email" style="flex:1;min-width:140px;padding:10px;border-radius:8px;border:1px solid #eee">
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <input name="phone" placeholder="Phone" style="flex:1;min-width:140px;padding:10px;border-radius:8px;border:1px solid #eee">
+              <input name="subject" placeholder="Subject" style="flex:1;min-width:140px;padding:10px;border-radius:8px;border:1px solid #eee">
+            </div>
+            <label style="color:var(--muted);font-weight:600">How can we help you?</label>
+            <textarea name="message" placeholder="Message" style="min-height:120px;padding:10px;border-radius:8px;border:1px solid #eee"></textarea>
+
+            <!-- quick survey-style fields to match survey app style -->
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+              <label style="margin:0;color:var(--muted);font-weight:600">Preferred contact method:</label>
+              <select name="contact_method" style="padding:10px;border-radius:8px;border:1px solid #eee">
+                <option value="phone">Phone</option>
+                <option value="email">Email</option>
+                <option value="whatsapp">WhatsApp</option>
+              </select>
+              <label style="margin:0;color:var(--muted);font-weight:600">Urgency:</label>
+              <select name="urgency" style="padding:10px;border-radius:8px;border:1px solid #eee">
+                <option value="normal">Normal</option>
+                <option value="urgent">Urgent</option>
+              </select>
+            </div>
+
+            <div style="display:flex;gap:8px">
+              <button type="submit" style="padding:12px;border-radius:8px;background:var(--navy);color:#fff;border:none;font-weight:700">Send Message</button>
+              <button type="button" id="contact-reset" style="padding:12px;border-radius:8px;background:#f3f4f6;border:none">Reset</button>
+            </div>
+
+            <div id="contact-status" style="color:var(--muted);font-size:13px;margin-top:8px"></div>
+          </form>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="max-width:720px">
+          <strong>CREPE 2000</strong> — A SAB Holding Company<br>
+          <small style="color:var(--muted)">Replace with official address, phone and legal links</small>
+        </div>
+        <div style="text-align:right;color:var(--muted)">© <span id="year"></span> CREPE 2000</div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // small client-side front-end scripts (order + menu + contact + survey)
+    document.getElementById('year').innerText = new Date().getFullYear();
+
+    function route(e,page){ if(e) e.preventDefault(); document.querySelectorAll('main section').forEach(s=>s.classList.add('hidden')); const el = document.getElementById(page+'-section'); if(el) el.classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'}); if(page==='order'){ initOrder(); } }
+    route(null,'home');
+
+    // menu data (structured). Keep this array updated as you change the menu.
+    const menuData = [
+      {id:1,cat:'Crepe',name:'Nashville Chicken',desc:'Nashville Chicken, Ranch, Buffalo Sauce, Pickles, Mozzarella, Lettuce',price:200},
+      {id:2,cat:'Crepe',name:'Crispy',desc:'Crispy Chicken, Mozzarella, Lettuce, Mayonnaise, Ketchup',price:160},
+      {id:3,cat:'Crepe',name:'Chicken Ranch',desc:'Crispy Chicken, Ranch, Mozzarella, Lettuce, Mayonnaise',price:165},
+      {id:4,cat:'Crepe',name:'Super Crunchy',desc:'Crispy Chicken, Turkey, Cheddar, Ketchup',price:170},
+      {id:5,cat:'Crepe',name:'Shish',desc:'Shish, Bell Peppers, Mozzarella, Mayonnaise, BBQ',price:180},
+      {id:6,cat:'Crepe',name:'Hot Dog',desc:'HotDog, Mozzarella, Bell Peppers, Mayonnaise, BBQ',price:145},
+
+      {id:10,cat:'Mixes',name:'Mix Cheese',desc:'Cheddar, Kiri, Mozzarella, Romi, Bell Peppers, Olives',price:150},
+      {id:11,cat:'Mixes',name:'Burger',desc:'Beef Burger, Mozzarella, Bell Peppers, Lettuce, BBQ, Tasty Sauce',price:175},
+      {id:12,cat:'Mixes',name:'Wesh Egram',desc:'Beef Burger, HotDog, Mozzarella, Bell Peppers, Mayonnaise, BBQ',price:175},
+      {id:13,cat:'Mixes',name:'Keda Reda',desc:'HotDog, Crispy Chicken, Mozzarella, Ketchup, Mayonnaise, BBQ',price:165},
+      {id:14,cat:'Mixes',name:'Ebn Ezz',desc:'HotDog, Crispy Chicken, Burger, Lettuce, Mozzarella, Sauce',price:190},
+      {id:15,cat:'Mixes',name:'Mido Mashakel',desc:'Shish, Crispy Chicken, Turkey, Lettuce, Mozzarella, Mayo, Ketchup',price:190},
+
+      {id:20,cat:'Crepe Rolls',name:'Hotdog Roll',desc:'HotDog, Mozzarella, Mayonnaise, Ketchup',price:115},
+      {id:21,cat:'Crepe Rolls',name:'Chicken Roll',desc:'Crispy Chicken, Mozzarella, Lettuce, Mayonnaise',price:135},
+      {id:22,cat:'Crepe Rolls',name:'Fries Roll',desc:'Fries, Mozzarella, Ketchup, Mayonnaise',price:100},
+      {id:23,cat:'Crepe Rolls',name:'Shish Roll',desc:'Shish, Mozzarella, Mayonnaise, BBQ',price:135},
+      {id:24,cat:'Crepe Rolls',name:'Mix Cheese Roll',desc:'Cheddar, Kiri, Mozzarella, Romi, Bell Peppers, Olives',price:125},
+
+      {id:30,cat:'Extras',name:'Chocolate',desc:'',price:25},
+      {id:31,cat:'Extras',name:'Brownies',desc:'',price:30},
+      {id:32,cat:'Extras',name:'Nutella',desc:'',price:40},
+      {id:33,cat:'Extras',name:'Morjan',desc:'',price:50},
+      {id:34,cat:'Extras',name:'Lotus',desc:'',price:45},
+      {id:35,cat:'Extras',name:'Bueno',desc:'',price:50},
+      {id:36,cat:'Extras',name:'Cheddar',desc:'',price:20},
+      {id:37,cat:'Extras',name:'Ranch',desc:'',price:20},
+      {id:38,cat:'Extras',name:'Tasty',desc:'',price:20},
+      {id:39,cat:'Extras',name:'Buffalo',desc:'',price:15},
+      {id:40,cat:'Extras',name:'Jalapeño',desc:'',price:15},
+
+      {id:50,cat:'Fries',name:'Fries',desc:'',price:55},
+      {id:51,cat:'Fries',name:'Cheese Fries',desc:'',price:80},
+      {id:52,cat:'Fries',name:'Chipsy',desc:'',price:15},
+
+      {id:60,cat:'Drinks',name:'Water',desc:'',price:20},
+      {id:61,cat:'Drinks',name:'Soda',desc:'Pepsi, Pepsi Diet, 7UP',price:35},
+      {id:62,cat:'Drinks',name:'Red Bull',desc:'Red Bull (varieties), Sugar Free options',price:85},
+
+      {id:70,cat:'Dessert',name:'Crepe Chocolate',desc:'',price:100},
+      {id:71,cat:'Dessert',name:'Crepe Chocolate Brownies',desc:'',price:125},
+      {id:72,cat:'Dessert',name:'Crepe Dubai',desc:'',price:150},
+      {id:73,cat:'Dessert',name:'Crepe Nutella',desc:'',price:170},
+      {id:74,cat:'Dessert',name:'Crepe Lotus',desc:'',price:175},
+      {id:75,cat:'Dessert',name:'Crepe Morjan',desc:'',price:200}
+    ];
+
+    // Category order and combined Sides
+    function getCategoryOrder(){ return ['Crepe','Mixes','Crepe Rolls','Sides','Dessert']; }
+
+    // initialize order page
+    let initialized = false;
+    function initOrder(){ if(initialized) return; initialized = true;
+      const grouped = {};
+      menuData.forEach(i=>{ if(!grouped[i.cat]) grouped[i.cat]=[]; grouped[i.cat].push(i); });
+      grouped['Sides'] = [];
+      ['Extras','Fries','Drinks'].forEach(sub=>{ if(grouped[sub]) grouped['Sides'] = grouped['Sides'].concat(grouped[sub]); });
+
+      const categories = getCategoryOrder().filter(c=> (grouped[c] && grouped[c].length>0) || (c==='Sides' && grouped['Sides'].length>0));
+      const tabs = document.getElementById('category-tabs');
+      categories.forEach((cat,idx)=>{
+        const btn = document.createElement('button'); btn.className='tab'; btn.setAttribute('role','tab'); btn.setAttribute('aria-selected','false'); btn.innerText = cat; btn.onclick = ()=>{ selectCategory(cat); document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active')); btn.classList.add('active'); };
+        tabs.appendChild(btn);
+        if(idx===0){ btn.classList.add('active'); selectCategory(cat); }
+      });
+
+      renderMenuCategories();
+    }
+
+    // select category and render items
+    function selectCategory(cat){ const itemsList = document.getElementById('items-list'); itemsList.innerHTML=''; let items = []; if(cat === 'Sides'){ items = menuData.filter(i=>['Extras','Fries','Drinks'].includes(i.cat)); } else { items = menuData.filter(i=>i.cat===cat); }
+      if(items.length===0){ itemsList.innerHTML='<div style="color:var(--muted)">No items in this category.</div>'; return }
+      items.forEach(it=>{ const row = document.createElement('div'); row.className='item'; row.innerHTML = `<div class="meta"><h4>${it.name}</h4><small>${it.desc || ''}</small><div><button class="add-btn" data-id="${it.id}">Add</button></div></div><div class="price">${it.price}</div>`; itemsList.appendChild(row); });
+      document.querySelectorAll('.add-btn').forEach(b=>b.onclick=()=>{ const id = parseInt(b.dataset.id); const item = menuData.find(m=>m.id===id); addToCart(item); }); }
+
+    // static full menu render
+    function renderMenuCategories(){ const container = document.getElementById('menu-categories'); container.innerHTML=''; const grouped = {}; menuData.forEach(i=>{ if(!grouped[i.cat]) grouped[i.cat]=[]; grouped[i.cat].push(i); }); const order = ['Crepe','Mixes','Crepe Rolls','Sides','Dessert']; order.forEach(catName=>{ if(catName==='Sides'){ const sidesCard = document.createElement('div'); sidesCard.className='card menu-cat'; const h=document.createElement('h3'); h.innerText='Sides'; sidesCard.appendChild(h); ['Extras','Fries','Drinks'].forEach(sub=>{ const items = grouped[sub]||[]; if(items.length===0) return; const subWrap=document.createElement('div'); subWrap.className='menu-subcat'; const subH=document.createElement('h4'); subH.innerText=sub; subWrap.appendChild(subH); items.forEach(item=>{ const row=document.createElement('div'); row.className='menu-item'; row.innerHTML=`<div><h4 style="margin:0">${item.name}</h4><small>${item.desc||''}</small></div><div class="price">${item.price}</div>`; subWrap.appendChild(row); }); sidesCard.appendChild(subWrap); }); container.appendChild(sidesCard); } else { const items = grouped[catName]||[]; if(items.length===0) return; const card=document.createElement('div'); card.className='card menu-cat menu-category'; const h=document.createElement('h3'); h.innerText=catName; card.appendChild(h); items.forEach(item=>{ const row=document.createElement('div'); row.className='menu-item'; row.innerHTML=`<div><h4 style="margin:0">${item.name}</h4><small>${item.desc||''}</small></div><div class="price">${item.price}</div>`; card.appendChild(row); }); container.appendChild(card); } }); }
+
+    // CART logic
+    let cart = [];
+    function addToCart(item){ const existing = cart.find(c=>c.id===item.id); if(existing) existing.qty++; else cart.push({...item,qty:1}); updateCart(); }
+    function updateCart(){ const el=document.getElementById('cart-contents'); el.innerHTML=''; if(cart.length===0){ el.innerHTML='<div style="color:var(--muted)">Cart is empty</div>'; document.getElementById('cart-total').innerText='0'; return } let total=0; cart.forEach(c=>{ const line=document.createElement('div'); line.className='line'; line.innerHTML=`<div>${c.name} x${c.qty}</div><div>${c.price*c.qty}</div>`; el.appendChild(line); total+=c.price*c.qty; }); document.getElementById('cart-total').innerText=total; }
+
+    // Forms: order, contact, survey (demo behaviour - console & status)
+    document.addEventListener('submit',function(e){ if(e.target && e.target.id==='order-form'){ e.preventDefault(); if(cart.length===0){ document.getElementById('order-status').innerText='Your cart is empty.'; return; } const payload = {customer:Object.fromEntries(new FormData(e.target).entries()),items:cart,total:document.getElementById('cart-total').innerText}; console.log('Order payload:',payload); document.getElementById('order-status').innerText='Order placed (demo). Check console.'; cart=[]; updateCart(); e.target.reset(); } if(e.target && e.target.id==='contact-form'){ e.preventDefault(); const payload = Object.fromEntries(new FormData(e.target).entries()); console.log('Contact form:',payload); document.getElementById('contact-status').innerText='Thanks — message sent (demo).'; e.target.reset(); } if(e.target && e.target.id==='survey-form'){ e.preventDefault(); const payload = Object.fromEntries(new FormData(e.target).entries()); console.log('Survey:',payload); document.getElementById('survey-status').innerText='Thanks for your feedback!'; e.target.reset(); } });
+
+  </script>
+</body>
+</html>
